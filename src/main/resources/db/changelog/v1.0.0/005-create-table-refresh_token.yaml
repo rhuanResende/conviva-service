@@ -1,0 +1,76 @@
+databaseChangeLog:
+  - changeSet:
+      id: 006-create-table-refresh_token
+      author: rhuan.resende
+      changes:
+        - createTable:
+            schemaName: auth
+            tableName: tb_refresh_token
+            columns:
+              - column:
+                  name: co_id
+                  type: UUID
+                  defaultValueComputed: gen_random_uuid()
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: co_user
+                  type: UUID
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: ds_token_hash
+                  type: VARCHAR(500)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: dt_expires_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: st_revoked
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: dt_revoked_at
+                  type: TIMESTAMP
+
+              - column:
+                  name: ds_device
+                  type: VARCHAR(200)
+
+              - column:
+                  name: ds_ip_address
+                  type: VARCHAR(50)
+
+              - column:
+                  name: dt_created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+
+        - createIndex:
+            schemaName: auth
+            tableName: tb_refresh_token
+            indexName: idx_refresh_token_user
+            columns:
+              - column:
+                  name: co_user
+
+        - createIndex:
+            schemaName: auth
+            tableName: tb_refresh_token
+            indexName: idx_refresh_token_expires
+            columns:
+              - column:
+                  name: dt_expires_at

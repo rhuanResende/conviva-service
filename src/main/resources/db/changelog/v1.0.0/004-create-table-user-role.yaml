@@ -1,0 +1,68 @@
+databaseChangeLog:
+  - changeSet:
+      id: 004-create-table-user-role
+      author: rhuan.resende
+      changes:
+        - createTable:
+            schemaName: auth
+            tableName: tb_user_role
+            columns:
+              - column:
+                  name: co_id
+                  type: UUID
+                  defaultValueComputed: gen_random_uuid()
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: co_user
+                  type: UUID
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: co_role
+                  type: UUID
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: st_active
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: dt_created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: dt_updated_at
+                  type: TIMESTAMP
+
+        - addUniqueConstraint:
+            schemaName: auth
+            tableName: tb_user_role
+            columnNames: co_user, st_active
+            constraintName: uk_user_active
+
+        - createIndex:
+            schemaName: auth
+            tableName: tb_user_role
+            indexName: idx_user_role_user
+            columns:
+              - column:
+                  name: co_user
+
+        - createIndex:
+            schemaName: auth
+            tableName: tb_user_role
+            indexName: idx_user_role_role
+            columns:
+              - column:
+                  name: co_role
