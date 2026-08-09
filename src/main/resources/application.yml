@@ -1,0 +1,45 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  application:
+    name: conviva_service
+    version: "@project.version@"
+
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+
+  liquibase:
+    enabled: true
+    change-log: classpath:/db/changelog/db.changelog-master.xml
+
+springdoc:
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+
+app:
+  api:
+    base: /api/v1
+
+security:
+  jwt:
+    secret: ${JWT_SECRET:0oew4dibIlhwVDaTJ0AAIPwV9DJ7BGRRNJ4vVOPtcYM}
+    expiration: ${JWT_EXPIRATION:1800000}
+
+  rate-limit:
+    login:
+      capacity: 5
+      duration-minutes: 1
+
+    refresh:
+      capacity: 20
+      duration-minutes: 1
+
+    default:
+      capacity: 10
+      duration-minutes: 1
+
+    api:
+      capacity: 50
+      duration-minutes: 1
