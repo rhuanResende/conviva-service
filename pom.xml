@@ -11,9 +11,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
-	<groupId>com.desenvolvimento.logica</groupId>
-	<artifactId>conviva_service</artifactId>
-	<version>1.0.0T</version>
+	<groupId>com.desenvolvimento.logica.conviva</groupId>
+	<artifactId>conviva-service</artifactId>
+	<version>1.0.0</version>
 
 	<properties>
 		<java.version>21</java.version>

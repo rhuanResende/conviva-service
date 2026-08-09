@@ -1,0 +1,110 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-create-table-user
+      author: rhuan.resende
+      changes:
+        - createTable:
+            schemaName: users
+            tableName: tb_user
+            columns:
+              - column:
+                  name: co_id
+                  type: UUID
+                  defaultValueComputed: gen_random_uuid()
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: ds_name
+                  type: VARCHAR(200)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: nr_document
+                  type: VARCHAR(11)
+                  constraints:
+                    nullable: false
+                    checkConstraint: "length(nr_document) = 11"
+
+              - column:
+                  name: ds_email
+                  type: VARCHAR(200)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: ds_phone
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: ds_password
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: st_active
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: st_first_access
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: st_force_password_change
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: nr_failed_login_attempts
+                  type: INTEGER
+                  defaultValueNumeric: "0"
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: dt_locked_until
+                  type: TIMESTAMP
+
+              - column:
+                  name: dt_last_lock_at
+                  type: TIMESTAMP
+
+              - column:
+                  name: dt_password_changed_at
+                  type: TIMESTAMP
+
+              - column:
+                  name: dt_password_expires_at
+                  type: TIMESTAMP
+
+              - column:
+                  name: dt_created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: dt_updated_at
+                  type: TIMESTAMP
+
+        - createIndex:
+            schemaName: users
+            tableName: tb_user
+            indexName: idx_user_document
+            columns:
+              - column:
+                  name: nr_document
